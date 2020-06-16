@@ -5,4 +5,7 @@
     <ItemGroup>
       <Compile Remove="..\Shared\Dummy.cs" />
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="MenuAPI.FiveM" Version="3.1.5" />
+    </ItemGroup>
 </Project>

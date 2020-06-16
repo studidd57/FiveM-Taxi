@@ -12,9 +12,11 @@ namespace FiveM_Taxi.Client
         private Vector3 destination;
 
         private TaxiStatus taxiStatus;
+        private Player owner;
 
-        public Taxi(VehicleHash vehicle, PedHash driver, Vector3 position)
+        public Taxi(Player owner, VehicleHash vehicle, PedHash driver, Vector3 position)
         {
+            this.owner = owner;
             CreateTaxi(vehicle, driver, position);
         }
 
