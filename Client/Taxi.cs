@@ -9,6 +9,7 @@ namespace FiveM_Taxi.Client
     {
         private Vehicle vehicle;
         private Ped driver;
+        private Vector3 destination;
 
         public Taxi(VehicleHash vehicle, PedHash driver, Vector3 position)
         {
@@ -24,6 +25,12 @@ namespace FiveM_Taxi.Client
 
             // Add object to Taxi Handler
             TaxiHandler.AddTaxiToHandler(this);
+        }
+
+        public void DriveTo(Vector3 position)
+        {
+            this.driver.Task.DriveTo(this.vehicle, position, 10f, 20f, 4);
+            this.destination = position;
         }
 
         public Vehicle Vehicle
