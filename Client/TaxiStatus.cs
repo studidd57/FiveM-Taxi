@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FiveM_Taxi.Client
 {
-    enum TaxiStatus
+    public enum TaxiStatus
     {
         ENROUTE,    // Taxi is currently driving to it's desired location
         ARRIVED,    // Arrived at the desired location, be it that of the passenger or destination

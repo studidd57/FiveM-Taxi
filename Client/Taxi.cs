@@ -11,6 +11,8 @@ namespace FiveM_Taxi.Client
         private Ped driver;
         private Vector3 destination;
 
+        private TaxiStatus taxiStatus;
+
         public Taxi(VehicleHash vehicle, PedHash driver, Vector3 position)
         {
             CreateTaxi(vehicle, driver, position);
@@ -25,12 +27,15 @@ namespace FiveM_Taxi.Client
 
             // Add object to Taxi Handler
             TaxiHandler.AddTaxiToHandler(this);
+            taxiStatus = TaxiStatus.OPEN;
+
         }
 
         public void DriveTo(Vector3 position)
         {
             this.driver.Task.DriveTo(this.vehicle, position, 10f, 20f, 4);
             this.destination = position;
+            taxiStatus = TaxiStatus.ENROUTE;
         }
 
         public Vehicle Vehicle
@@ -43,6 +48,11 @@ namespace FiveM_Taxi.Client
         {
             get { return Driver; }
             set { Driver = value; }
+        }
+
+        public TaxiStatus Status
+        {
+            get { return taxiStatus; }
         }
     }
 }
