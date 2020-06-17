@@ -12,11 +12,11 @@ namespace FiveM_Taxi.Client
         private Vector3 destination;
 
         private TaxiStatus taxiStatus;
-        private Player owner;
+        public Player Owner;
 
         public Taxi(Player owner, VehicleHash vehicle, PedHash driver, Vector3 position)
         {
-            this.owner = owner;
+            this.Owner = owner;
             CreateTaxi(vehicle, driver, position);
         }
 
@@ -25,7 +25,7 @@ namespace FiveM_Taxi.Client
             // Set up entities
             this.vehicle = await World.CreateVehicle(vehicle, position);
             this.driver = await World.CreatePed(driver, position);
-            this.driver.Task.WarpIntoVehicle(this.vehicle, VehicleSeat.Driver);
+            this.driver.SetIntoVehicle(this.vehicle, VehicleSeat.Driver);
 
             // Add object to Taxi Handler
             TaxiHandler.AddTaxiToHandler(this);
