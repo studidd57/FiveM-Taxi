@@ -9,7 +9,9 @@ namespace FiveM_Taxi.Client
     {
         private Vehicle vehicle;
         private Ped driver;
+
         private Vector3 destination;
+        private const float ARRIVE_RADIUS = 10f;
 
         private TaxiStatus taxiStatus;
         public Player Owner;
@@ -18,6 +20,16 @@ namespace FiveM_Taxi.Client
         {
             this.Owner = owner;
             CreateTaxi(vehicle, driver, position);
+        }
+
+        [Tick]
+        private Task StatusTick()
+        {
+            if (this.vehicle.IsInRangeOf(destination, ARRIVE_RADIUS))
+            {
+                this.taxiStatus = TaxiStatus.ARRIVED;
+            }
+            return Task.FromResult(0);
         }
 
         private async void CreateTaxi(VehicleHash vehicle, PedHash driver, Vector3 position)
@@ -29,13 +41,13 @@ namespace FiveM_Taxi.Client
 
             // Add object to Taxi Handler
             TaxiHandler.AddTaxiToHandler(this);
-            taxiStatus = TaxiStatus.OPEN;
+            this.taxiStatus = TaxiStatus.OPEN;
 
         }
 
         public void DriveTo(Vector3 position)
         {
-            this.driver.Task.DriveTo(this.vehicle, position, 10f, 20f, 4);
+            this.driver.Task.DriveTo(this.vehicle, position, ARRIVE_RADIUS, 20f, 4);
             this.destination = position;
             taxiStatus = TaxiStatus.ENROUTE;
         }
